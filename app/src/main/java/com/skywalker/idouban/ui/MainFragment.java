@@ -19,7 +19,7 @@ public class MainFragment extends BaseFragment {
 
     @Override
     protected void initView(View view, Bundle savedInstanceState) {
-        ViewPager viewPager=view.findViewById(R.id.main_viewPager);
+        ViewPager viewPager=(ViewPager) view.findViewById(R.id.main_viewPager);
         BookFragment fragment1 = new BookFragment();
         MusicFragment fragment2 =new  MusicFragment();
         MyFragmentPagerAdapter adapter = new MyFragmentPagerAdapter(getChildFragmentManager());
@@ -27,7 +27,7 @@ public class MainFragment extends BaseFragment {
         adapter.addItem(fragment2, "音乐");
         viewPager.setAdapter(adapter);
 
-        TabLayout tabLayout=view.findViewById(R.id.tabLayout);
+        TabLayout tabLayout=(TabLayout)view.findViewById(R.id.tabLayout);
         tabLayout.setupWithViewPager(viewPager);
     }
 

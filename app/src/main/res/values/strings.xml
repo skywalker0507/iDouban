@@ -5,4 +5,13 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
     <string name="action_settings">Settings</string>
+
+    <!--引导页按钮-->
+    <string name="guide_skip">SKIP</string>
+    <string name="guide_done">DONE</string>
+
+    <!--引导页底部圆点-->
+    <dimen name="point_size">6dp</dimen>
+    <dimen name="left_margin">6dp</dimen>
+
 </resources>
