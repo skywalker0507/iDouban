@@ -3,6 +3,7 @@ package com.skywalker.idouban;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.view.View;
@@ -47,6 +48,7 @@ public class GuideActivity extends Activity implements View.OnClickListener {
         ActivityCollector.addActivity(this);
 
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS, WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);//添加此行代码原因：部分手机底部有虚拟键，使其布局向下延伸至全屏，正常显示引导页动画
 
         mSp = getSharedPreferences("config", MODE_PRIVATE);
         //初始化控件
@@ -171,6 +173,16 @@ public class GuideActivity extends Activity implements View.OnClickListener {
         startActivity(new Intent(GuideActivity.this, MainActivity.class));
         finish();
     }
+
+
+
+//    protected void hideBottomUIMenu(){
+//        if(Build.VERSION.SDK_INT>11 && Build.VERSION.SDK_INT<19){
+//            View v = this.getWindow().getDecorView();
+//            v.getSystemUiVisibility(View.GONE);
+//        }
+//
+//    }
 
 
     @Override
