@@ -2,6 +2,8 @@ package com.skywalker.idouban.ui;
 
 import android.animation.Animator;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
@@ -14,8 +16,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.graphics.drawable.DrawerArrowDrawable;
 import android.support.v7.widget.Toolbar;
 import android.util.DisplayMetrics;
+import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewAnimationUtils;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.skywalker.idouban.R;
@@ -44,11 +49,15 @@ public class MainFragment extends BaseFragment {
     private int mAppBarWidth;
     private int mTabCount;
 
-    public static MainFragment newInstance(int someInt, String someTitle) {
+    private static final String KEY_INT  = "int";
+    private static final String KEY_STRING="string";
+    private static final String TAG  = "MainFragment";
+    private int mSelectItem;
+    public static MainFragment newInstance(int selectedItem, String someTitle) {
         MainFragment fragment = new MainFragment();
         Bundle args = new Bundle();
-        args.putInt("someInt", someInt);
-        args.putString("someTitle", someTitle);
+        args.putInt(KEY_INT, selectedItem);
+        args.putString(KEY_STRING, someTitle);
 
         fragment.setArguments(args);
         return fragment;
@@ -58,8 +67,23 @@ public class MainFragment extends BaseFragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         // Get back arguments
-        int SomeInt = getArguments().getInt("someInt", 0);
-        String someTitle = getArguments().getString("someTitle", "");
+        mSelectItem = getArguments().getInt(KEY_INT, 0);
+        String someTitle = getArguments().getString(KEY_STRING, "");
+        Log.e(TAG,"onCreate");
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        Log.e(TAG,"onResume");
+    }
+
+    @Nullable
+    @Override
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        Log.e(TAG,"onCreateView");
+        return super.onCreateView(inflater, container, savedInstanceState);
+
     }
 
     @Override
@@ -73,7 +97,7 @@ public class MainFragment extends BaseFragment {
         mAdapter.addItem(fragment2, "音乐", ContextCompat.getColor(getContext(), R.color.musicBackground));
         mAdapter.addItem(fragment3, "电影", ContextCompat.getColor(getContext(), R.color.movieBackground));
         mViewPager.setAdapter(mAdapter);
-
+        mViewPager.setCurrentItem(mSelectItem);
         mAppBarLayout = (AppBarLayout) view.findViewById(R.id.appBarLayout);
         final TabLayout tabLayout = (TabLayout) view.findViewById(R.id.tabLayout);
         tabLayout.setupWithViewPager(mViewPager);
@@ -191,5 +215,17 @@ public class MainFragment extends BaseFragment {
     @Override
     protected int getLayoutId() {
         return R.layout.fragment_main;
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        Log.e(TAG,"onDestroy");
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        Log.e(TAG,"onStop");
     }
 }

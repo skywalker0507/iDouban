@@ -6,6 +6,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.MenuItem;
 
 import com.skywalker.idouban.ui.MainFragment;
@@ -85,24 +86,25 @@ public class MainActivity extends AppCompatActivity
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
-        Fragment  current = getSupportFragmentManager().findFragmentById(R.id.main_content);
+        Fragment current = getSupportFragmentManager().findFragmentById(R.id.main_content);
 
         switch (id) {
             case R.id.nav_book:
             case R.id.nav_music:
                 MainFragment mainFragment;
-                if (current != null && current instanceof MainFragment) {
+                if (current != null && (current instanceof MainFragment)) {
                     mainFragment = (MainFragment) current;
+                    if (id == R.id.nav_book) {
+                        mainFragment.selectItem(0);
+                    } else {
+                        mainFragment.selectItem(1);
+                    }
                 } else {
-                    mainFragment = MainFragment.newInstance(0, "main");
+                    mainFragment = MainFragment.newInstance(id == R.id.nav_book ? 0 : 1, "main");
                     getSupportFragmentManager().beginTransaction().replace(R.id.main_content, mainFragment).commit();
                 }
+                Log.e("--------->", "invoke");
 
-                if (id == R.id.nav_book) {
-                    mainFragment.selectItem(0);
-                } else {
-                    mainFragment.selectItem(1);
-                }
 
                 break;
             default:
