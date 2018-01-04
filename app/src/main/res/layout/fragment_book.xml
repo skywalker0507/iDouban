@@ -7,5 +7,7 @@
 
     <include
         android:id="@+id/book_recommend"
+        android:layout_width="match_parent"
+        android:layout_height="160dp"
         layout="@layout/recommend"/>
 </LinearLayout>

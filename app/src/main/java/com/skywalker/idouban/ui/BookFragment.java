@@ -3,7 +3,6 @@ package com.skywalker.idouban.ui;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.LinearSnapHelper;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SnapHelper;
 import android.view.View;
@@ -12,6 +11,7 @@ import com.skywalker.idouban.R;
 import com.skywalker.idouban.adapter.RecyclerViewAdapter;
 import com.skywalker.idouban.models.AppItem;
 import com.skywalker.idouban.ui.base.BaseFragment;
+import com.skywalker.idouban.ui.base.GravitySnapHelper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -53,7 +53,7 @@ public class BookFragment extends BaseFragment{
         }
         RecyclerViewAdapter adapter=new RecyclerViewAdapter(getContext(),list);
         recyclerView.setAdapter(adapter);
-        SnapHelper snapHelper = new LinearSnapHelper();
+        SnapHelper snapHelper = new GravitySnapHelper(GravitySnapHelper.START);
         snapHelper.attachToRecyclerView(recyclerView);
     }
 

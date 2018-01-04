@@ -26,6 +26,7 @@ import android.widget.ImageView;
 import com.skywalker.idouban.R;
 import com.skywalker.idouban.adapter.MyFragmentPagerAdapter;
 import com.skywalker.idouban.ui.base.BaseFragment;
+import com.skywalker.idouban.ui.base.FixedViewPager;
 
 /*******************************
  * Created by liuqiang          *
@@ -36,7 +37,7 @@ import com.skywalker.idouban.ui.base.BaseFragment;
 public class MainFragment extends BaseFragment {
 
 
-    private ViewPager mViewPager;
+    private FixedViewPager mViewPager;
     private MyFragmentPagerAdapter mAdapter;
     private Animator mAnimator;
     private long ANIMATION_DURATION = 650L;
@@ -88,7 +89,8 @@ public class MainFragment extends BaseFragment {
 
     @Override
     protected void initView(View view, Bundle savedInstanceState) {
-        mViewPager = (ViewPager) view.findViewById(R.id.main_viewPager);
+        mViewPager = (FixedViewPager) view.findViewById(R.id.main_viewPager);
+        mViewPager.canScroll(false);
         BookFragment fragment1 = BookFragment.newInstance(0, "book");
         MusicFragment fragment2 = MusicFragment.newInstance(1, "music");
         MovieFragment fragment3 = MovieFragment.newInstance(2, "movie");
