@@ -9,13 +9,13 @@ import com.skywalker.idouban.ui.base.BaseFragment;
 /*******************************
  * Created by liuqiang          *
  *******************************
- * data: 2018/1/3               *
+ * data: 2018/1/4               *
  *******************************/
 
-public class SettingFragment extends BaseFragment {
+public class MovieFragment extends BaseFragment {
 
-    public static SettingFragment newInstance(int someInt, String someTitle) {
-        SettingFragment fragment = new SettingFragment();
+    public static MovieFragment newInstance(int someInt, String someTitle) {
+        MovieFragment fragment = new MovieFragment();
         Bundle args = new Bundle();
         args.putInt("someInt", someInt);
         args.putString("someTitle", someTitle);
@@ -38,6 +38,6 @@ public class SettingFragment extends BaseFragment {
 
     @Override
     protected int getLayoutId() {
-        return R.layout.fragment_setting;
+        return R.layout.fragment_moive;
     }
 }

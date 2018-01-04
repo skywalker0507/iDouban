@@ -20,6 +20,7 @@ import android.view.ViewGroup;
 public abstract class BaseFragment extends Fragment {
     private Activity mActivity;
 
+
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
@@ -37,6 +38,5 @@ public abstract class BaseFragment extends Fragment {
     }
 
     protected abstract void initView(View view, Bundle savedInstanceState);
-    protected abstract @LayoutRes
-    int getLayoutId();
+    protected abstract @LayoutRes int getLayoutId();
 }
