@@ -1,6 +1,7 @@
 package com.skywalker.idouban.ui;
 
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
 
 import com.skywalker.idouban.R;
@@ -32,7 +33,7 @@ public class SettingFragment extends BaseFragment {
     }
 
     @Override
-    protected void initView(View view, Bundle savedInstanceState) {
+    protected void initView(LayoutInflater inflater, View view, Bundle savedInstanceState) {
 
     }
 

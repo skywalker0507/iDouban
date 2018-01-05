@@ -88,7 +88,7 @@ public class MainFragment extends BaseFragment {
     }
 
     @Override
-    protected void initView(View view, Bundle savedInstanceState) {
+    protected void initView(LayoutInflater inflater,View view, Bundle savedInstanceState) {
         mViewPager = (FixedViewPager) view.findViewById(R.id.main_viewPager);
         mViewPager.canScroll(false);
         BookFragment fragment1 = BookFragment.newInstance(0, "book");

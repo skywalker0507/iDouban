@@ -3,7 +3,14 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     >
+    <com.skywalker.idouban.ui.base.TagLayout
+        android:id="@+id/book_tagLayout"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
 
     <include
         android:id="@+id/book_recommend"
