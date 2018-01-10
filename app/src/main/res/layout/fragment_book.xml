@@ -17,4 +17,10 @@
         android:layout_width="match_parent"
         android:layout_height="160dp"
         layout="@layout/recommend"/>
+
+    <Button
+        android:id="@+id/book_bt_test"
+        android:text="TEST"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
 </LinearLayout>

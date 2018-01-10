@@ -7,7 +7,7 @@
     android:layout_height="match_parent">
 
     <TextView
-        android:text="123"
+        android:id="@+id/tv_111"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
     <com.skywalker.idouban.ui.base.TagLayout

@@ -94,10 +94,20 @@ public class MainFragment extends BaseFragment {
         BookFragment fragment1 = BookFragment.newInstance(0, "book");
         MusicFragment fragment2 = MusicFragment.newInstance(1, "music");
         MovieFragment fragment3 = MovieFragment.newInstance(2, "movie");
+
         mAdapter = new MyFragmentPagerAdapter(getChildFragmentManager());
-        mAdapter.addItem(fragment1, "图书", ContextCompat.getColor(getContext(), R.color.bookBackground));
-        mAdapter.addItem(fragment2, "音乐", ContextCompat.getColor(getContext(), R.color.musicBackground));
-        mAdapter.addItem(fragment3, "电影", ContextCompat.getColor(getContext(), R.color.movieBackground));
+        mAdapter.addItem(fragment1, "图书",
+                ContextCompat.getColor(getContext(), R.color.book_colorPrimary),
+                ContextCompat.getColor(getContext(), R.color.book_colorPrimaryDark)
+                );
+        mAdapter.addItem(fragment2, "音乐",
+                ContextCompat.getColor(getContext(), R.color.music_colorPrimary),
+                ContextCompat.getColor(getContext(), R.color.music_colorPrimaryDark)
+                );
+        mAdapter.addItem(fragment3, "电影",
+                ContextCompat.getColor(getContext(), R.color.movie_colorPrimary),
+                ContextCompat.getColor(getContext(), R.color.movie_colorPrimaryDark)
+                );
         mViewPager.setAdapter(mAdapter);
         mViewPager.setCurrentItem(mSelectItem);
         mAppBarLayout = (AppBarLayout) view.findViewById(R.id.appBarLayout);
@@ -141,7 +151,7 @@ public class MainFragment extends BaseFragment {
                     navigationView.setCheckedItem(R.id.nav_music);
                 }
                 int x=(mAppBarWidth/mTabCount/2)*(2*position+1);
-                animate(x,mAppBarHeight,mAdapter.getItemBackground(position));
+                animate(x,mAppBarHeight,mAdapter.getItemBackground(position),mAdapter.getPrimaryDarkColor(position));
             }
 
             @Override
@@ -164,7 +174,7 @@ public class MainFragment extends BaseFragment {
     }
 
 
-    private void animate(int x, int y, final int color) {
+    private void animate(int x, int y, final int color,final int colorPrimaryDark) {
         float startRadius = 0F;
         float endRadius = (float) Math.hypot(mAppBarLayout.getWidth(), mAppBarLayout.getHeight());
         if (mAnimator != null) {
@@ -178,7 +188,7 @@ public class MainFragment extends BaseFragment {
         mAnimator.addListener(new Animator.AnimatorListener() {
             @Override
             public void onAnimationStart(Animator animation) {
-                setBackground(color);
+                setBackground(color,colorPrimaryDark);
             }
 
             @Override
@@ -200,10 +210,11 @@ public class MainFragment extends BaseFragment {
 
     }
 
-    private void setBackground(int color) {
+    private void setBackground(int color,int colorPrimaryDark) {
         mToolbar.setBackgroundColor(color);
         mAppBarLayout.setBackgroundColor(color);
-        mDrawerLayout.setStatusBarBackgroundColor(color);
+        mDrawerLayout.setStatusBarBackgroundColor(colorPrimaryDark);
+
     }
 
 

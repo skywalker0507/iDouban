@@ -17,15 +17,17 @@ public class MyFragmentPagerAdapter extends FragmentPagerAdapter {
     private ArrayList<Fragment> mPagerList=new ArrayList<>();
     private ArrayList<String> mTitleList=new ArrayList<>();
     private ArrayList<Integer> mColorList=new ArrayList<>();
+    private ArrayList<Integer> primaryDarkList=new ArrayList<>();
 
     public MyFragmentPagerAdapter(FragmentManager fragmentManager){
         super(fragmentManager);
     }
 
-    public void addItem(Fragment fragment, String title, @ColorInt int backgroundColor){
+    public void addItem(Fragment fragment, String title, @ColorInt int backgroundColor,@ColorInt int primaryDark){
         mPagerList.add(fragment);
         mTitleList.add(title);
         mColorList.add(backgroundColor);
+        primaryDarkList.add(primaryDark);
     }
     @Override
     public Fragment getItem(int position) {
@@ -34,6 +36,9 @@ public class MyFragmentPagerAdapter extends FragmentPagerAdapter {
 
     public int getItemBackground(int position){
         return mColorList.get(position);
+    }
+    public int getPrimaryDarkColor(int position){
+        return primaryDarkList.get(position);
     }
 
     @Override
