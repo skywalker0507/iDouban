@@ -26,6 +26,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
 
     private Context mContext;
     private List<Movie> mList=new ArrayList<>();
+    private OnItemClickListener mListener;
     public MovieAdapter(Context context,List<Movie> list){
         this.mContext=context;
         this.mList=list;
@@ -37,8 +38,8 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
     }
 
     @Override
-    public void onBindViewHolder(MovieViewHolder holder, int position) {
-        Movie movie=mList.get(position);
+    public void onBindViewHolder(MovieViewHolder holder, final int position) {
+        final Movie movie=mList.get(position);
         holder.mName.setText(movie.getTitle());
         holder.mInfo.setText(GetInfo(movie.getCasts()));
         holder.mTime.setText(GetTime(movie.getYear(),movie.getGenres()));
@@ -47,7 +48,17 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
         holder.mRating.setRating(v);
         holder.mAverage.setText(String.valueOf(v));
        Glide.with(mContext).load(movie.getImages().getSmall()).into(holder.mCover);
+       holder.mParentView.setOnClickListener(new View.OnClickListener() {
+           @Override
+           public void onClick(View v) {
+               mListener.onClick(v,position,movie);
+           }
+       });
 
+    }
+
+    public void setOnItemClickListener(OnItemClickListener listener){
+        this.mListener=listener;
     }
 
     private static String GetInfo(Casts[] casts){
@@ -76,8 +87,10 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
         public TextView mTime;
         public AppCompatRatingBar mRating;
         public TextView mAverage;
+        public View mParentView;
         public MovieViewHolder(View view){
             super(view);
+            mParentView=view;
             mCover=view.findViewById(R.id.iv_movie_cover);
             mName=view.findViewById(R.id.tv_movie_name);
             mInfo=view.findViewById(R.id.tv_movie_info);
@@ -88,5 +101,9 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
 
 
         }
+    }
+
+    public interface OnItemClickListener{
+        void onClick(View view,int position,Movie movie);
     }
 }

@@ -38,6 +38,6 @@ public class MovieDetailFragment extends BaseFragment {
 
     @Override
     protected int getLayoutId() {
-        return R.layout.activity_movie;
+        return R.layout.activity_top250movie;
     }
 }

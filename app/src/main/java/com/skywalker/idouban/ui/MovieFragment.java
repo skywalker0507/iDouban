@@ -89,7 +89,7 @@ public class MovieFragment extends BaseFragment {
                 intent.putExtra("tag",list.get(position));
                 /*ActivityOptionsCompat options = ActivityOptionsCompat
                         .makeSceneTransitionAnimation(getActivity(), view, "movie_tag");*/
-                getActivity().startActivityFromFragment(MovieFragment.this, intent,0);
+                startActivity(intent);
 
 
 

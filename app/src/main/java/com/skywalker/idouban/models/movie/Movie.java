@@ -254,4 +254,6 @@ public class Movie {
     public void setAka(String[] aka) {
         this.aka = aka;
     }
+
+
 }

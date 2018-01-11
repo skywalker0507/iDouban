@@ -18,7 +18,7 @@ import android.view.ViewGroup;
  *******************************/
 
 public abstract class BaseFragment extends Fragment {
-    private Activity mActivity;
+    protected Activity mActivity;
 
 
     @Override

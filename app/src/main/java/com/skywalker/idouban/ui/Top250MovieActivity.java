@@ -1,6 +1,7 @@
 package com.skywalker.idouban.ui;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -9,11 +10,13 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Gravity;
+import android.view.View;
 
 import com.google.gson.Gson;
 import com.skywalker.idouban.R;
 import com.skywalker.idouban.models.movie.Movie;
 import com.skywalker.idouban.models.movie.MovieAdapter;
+import com.skywalker.idouban.models.movie.SimpleMovie;
 import com.skywalker.idouban.models.movie.Top250;
 import com.skywalker.idouban.models.movie.Top250Movie;
 import com.skywalker.idouban.ui.base.SwipeRefreshLayoutEx;
@@ -37,7 +40,7 @@ import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
  * data: 2018/1/10               *
  *******************************/
 
-public class Top250MovieActivity extends AppCompatActivity implements SwipeRefreshLayoutEx.OnRefreshListener {
+public class Top250MovieActivity extends AppCompatActivity implements SwipeRefreshLayoutEx.OnRefreshListener,MovieAdapter.OnItemClickListener {
 
 
     private SwipeRefreshLayoutEx mRefreshLayout;
@@ -53,11 +56,12 @@ public class Top250MovieActivity extends AppCompatActivity implements SwipeRefre
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_movie);
+        setContentView(R.layout.activity_top250movie);
         initView();
         String title = getIntent().getStringExtra("tag");
         initToolbar(title);
-        getData();
+        ProgressDialog dialog=new ProgressDialog(this);
+        getData(dialog);
 
     }
 
@@ -68,6 +72,7 @@ public class Top250MovieActivity extends AppCompatActivity implements SwipeRefre
         mRefreshLayout.setRefreshDrawableStyle(SwipeRefreshLayoutEx.ARROW);
         mRefreshLayout.setOnRefreshListener(this);
         adapter = new MovieAdapter(this, list);
+        adapter.setOnItemClickListener(this);
         retrofit = new Retrofit.Builder()
                 .baseUrl(baseUrl)
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
@@ -85,12 +90,13 @@ public class Top250MovieActivity extends AppCompatActivity implements SwipeRefre
 
     @Override
     public void onRefresh() {
-        getData();
+        getData(null);
     }
 
-    private void getData() {
-        final ProgressDialog dialog=new ProgressDialog(this);
-        dialog.show();
+    private void getData(@Nullable final ProgressDialog dialog) {
+        if (dialog!=null){
+            dialog.show();
+        }
         movie.response(start, COUNT)
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -112,21 +118,33 @@ public class Top250MovieActivity extends AppCompatActivity implements SwipeRefre
                         Log.e("movie", String.valueOf(movies.getSubjects().length));
                         list.addAll(Arrays.asList(movies.getSubjects()));
                         adapter.notifyDataSetChanged();
-                        mRefreshLayout.setRefreshing(false);
+
                     }
 
                     @Override
                     public void onError(Throwable e) {
                         Log.e("onError", e.getMessage());
-                        dialog.dismiss();
                         mRefreshLayout.setRefreshing(false);
+                        if (dialog!=null){
+                            dialog.dismiss();
+                        }
                     }
 
                     @Override
                     public void onComplete() {
                         start += COUNT;
-                        dialog.dismiss();
+                        mRefreshLayout.setRefreshing(false);
+                        if (dialog!=null){
+                            dialog.dismiss();
+                        }
                     }
                 });
+    }
+
+    @Override
+    public void onClick(View view, int position, Movie movie) {
+        Intent intent=new Intent(this,MovieDetailActivity.class);
+        intent.putExtra("movie",new SimpleMovie(movie));
+        startActivity(intent);
     }
 }
