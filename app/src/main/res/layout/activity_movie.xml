@@ -52,25 +52,20 @@
 
     </android.support.design.widget.AppBarLayout>
 
-    <android.support.v4.widget.NestedScrollView
+
+    <com.skywalker.idouban.ui.base.SwipeRefreshLayoutEx
+        android:id="@+id/SwipeRefreshLayout_top250"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:paddingTop="5dp"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-        <LinearLayout
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv_movie_main"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:paddingTop="5dp">
-
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/rv_movie_main"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
-        </LinearLayout>
-
-
-    </android.support.v4.widget.NestedScrollView>
+            android:layout_height="wrap_content"/>
+    </com.skywalker.idouban.ui.base.SwipeRefreshLayoutEx>
 
 
 </android.support.design.widget.CoordinatorLayout>
