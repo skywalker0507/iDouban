@@ -10,7 +10,7 @@ import retrofit2.http.GET;
  * data: 2018/1/9               *
  *******************************/
 
-public interface Weekly {
-    @GET("movie/weekly")
+public interface GetNewMovies {
+    @GET("movie/new_movies")
     Observable<ResponseBody> response();
 }

@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -16,9 +17,8 @@ import com.google.gson.Gson;
 import com.skywalker.idouban.R;
 import com.skywalker.idouban.models.movie.Movie;
 import com.skywalker.idouban.models.movie.MovieAdapter;
-import com.skywalker.idouban.models.movie.SimpleMovie;
 import com.skywalker.idouban.models.movie.Top250;
-import com.skywalker.idouban.models.movie.Top250Movie;
+import com.skywalker.idouban.models.movie.GetTop250Movie;
 import com.skywalker.idouban.ui.base.SwipeRefreshLayoutEx;
 
 import java.util.ArrayList;
@@ -48,10 +48,9 @@ public class Top250MovieActivity extends AppCompatActivity implements SwipeRefre
     private MovieAdapter adapter;
     private int start = 0;
     private static final int COUNT = 10;
-    final String baseUrl = "https://api.douban.com/v2/";
 
     private Retrofit retrofit;
-    private Top250Movie movie;
+    private GetTop250Movie movie;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -74,10 +73,10 @@ public class Top250MovieActivity extends AppCompatActivity implements SwipeRefre
         adapter = new MovieAdapter(this, list);
         adapter.setOnItemClickListener(this);
         retrofit = new Retrofit.Builder()
-                .baseUrl(baseUrl)
+                .baseUrl(getString(R.string.base_movie_url))
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .build();
-        movie = retrofit.create(Top250Movie.class);
+        movie = retrofit.create(GetTop250Movie.class);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(adapter);
     }
@@ -144,7 +143,11 @@ public class Top250MovieActivity extends AppCompatActivity implements SwipeRefre
     @Override
     public void onClick(View view, int position, Movie movie) {
         Intent intent=new Intent(this,MovieDetailActivity.class);
-        intent.putExtra("movie",new SimpleMovie(movie));
-        startActivity(intent);
+        intent.putExtra("movie_id",movie.getId());
+        intent.putExtra("movie_url",movie.getImages().getMedium());
+        intent.putExtra("movie_name",movie.getTitle());
+        ActivityOptionsCompat options = ActivityOptionsCompat.
+                makeSceneTransitionAnimation(this, view.findViewById(R.id.iv_movie_cover), getString(R.string.share_element_movie));
+        startActivity(intent,options.toBundle());
     }
 }

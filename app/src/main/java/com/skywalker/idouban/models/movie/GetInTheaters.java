@@ -10,7 +10,7 @@ import retrofit2.http.GET;
  * data: 2018/1/9               *
  *******************************/
 
-public interface InTheaters {
+public interface GetInTheaters {
     @GET("movie/in_theaters")
     Observable<ResponseBody> response();
 }
